@@ -68,4 +68,4 @@ python separateTaskPython/runPipelines.py
 
 ## References
 - Alphafold Prediction on Colab [Notebook Link](https://colab.research.google.com/github/sokrypton/ColabFold/blob/main/AlphaFold2.ipynb) ~ Martin Steinegger and Sergey Ovchinnikov
-- Structome-AlignViewer [Website Link](https://biosig.lab.uq.edu.au/structome_alignviewer/)
+- Structome-AlignViewer [Website Link](https://biosig.lab.uq.edu.au/structome_alignviewer/) - [Paper reference Link](https://doi.org/10.1093/gbe/evag004)
