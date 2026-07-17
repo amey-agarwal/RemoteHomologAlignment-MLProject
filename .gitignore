@@ -11,3 +11,5 @@ reservePDBfilegroups/seqTrim*
 reservePDBfilegroups/*_AF2Pred
 reservePDBfilegroups/uL02*
 reservePDBfilegroups/bL19*
+reservePDBfilegroups/*-AF2-*
+reservePDBfilegroups/rawpredictionzipFiles-af2
