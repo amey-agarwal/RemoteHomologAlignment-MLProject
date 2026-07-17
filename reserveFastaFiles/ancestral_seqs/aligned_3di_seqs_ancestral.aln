@@ -1,0 +1,46 @@
+CLUSTAL format alignment by MAFFT G-INS-i (v7.471)
+
+
+uL02_SH3        PDDAFFKWAQKDQD----------------------------ARPGGDAQRHAQWIW---
+uL24_SH3        QDDQQFWKA-------------------------------------FCDDPRHGDIF---
+bL19_SH3        ADDAAQLFWKWWFF------------------------------WDDDDPDIDTDID-TF
+aL14_SH3        PQDQFWKKA-------------------------------------FCDDPRHGFIW---
+aL21_SH3        VDDDDQFFKKAFRAHNN-------------------------DDPQGDRSVRHGFIW---
+aS04_SH3        PDQQFWWA--------------------------------------FRDDNRHLFIF-GW
+bEFP_SH3        PADQQWWF--------------------------------------DDPQFIWGWHD---
+aIF5a_SH3       LPDDQQFWF-------------------------------------ADPNFIWGWHD---
+uL02_OB         APPPDVD---------------------------------------RPFPRGFDWDF---
+aS28_OB         QDDDDDDGD-------------------------------------DDDDDFFWKAW-DA
+aS04_OB         QDDDDDDDD-------------------------------------PDRGHPRQWDF---
+uS12_OB         QDPVVRDTD-------------------------------------GDHDPDFDWDWDDW
+uS17_OB         PDDFQWWF--------------------------------------WKDAPPDIFIF---
+bS01_OB         DDHGDTDTWGFHDADPVVSYTYTGPNVVDPPPLVVCCVVPPADPPDDDPDPPQPFQF---
+aIF2a_OB        PDDDDDDPP-------------------------------------QPDDDAPDDFD---
+aIF5a_OB        DDDDDDPP--------------------------------------PDPLARQPQFW---
+aIF1_OB         WDDDDLAT--------------------------------------DGHPPPDDFDW---
+bIF1_OB         PDADFQWKFWKF----------------------------------QAPVDRDTFIW---
+bEFP_OB1        PPPVFDDDD-------------------------------------DPPRDDFDFFF---
+bEFP_OB2        GDDDDDGI--------------------------------------HRDRPDDWFAFPDW
+                                                                            
+
+uL02_SH3        ----GFHADD-DQ----WTWIQGP------------------LRWIFTGGRN--
+uL24_SH3        ---GWHDDDRVVQ----WTFTPPPQWDWDFDDDDPVHNPTDTDTDTDTHHSVRM
+bL19_SH3        G--WFAWDDD-RQQIKTKGWDQDPN-----------------DIDIDIDRPR--
+aL14_SH3        ---GFQADPD-PF----WTFTDPLP-------LDP------DHGDIDTP-----
+aL21_SH3        ----GFHADD-DQ----WTWTWGDD--------DP-------DIDTGTHHSN--
+aS04_SH3        H--DWADDPD-PP--FIWTWGQGP------------------VGDTDIDGPV--
+bEFP_SH3        ---WDWDDDP-PDAIKIWTWIATPV-----------------PRDIDIDIDG--
+aIF5a_SH3       ---KDWDDDPPPDAIKIKTWTAGPP-----------------PRDIDIDIDG--
+uL02_OB         --PTWYDHLV-AQ--FIWTWIQGP------------------VGDIHIYQDF--
+aS28_OB         W--PAQDDVV-RQ--WTKTWIAGCD--------DP------RHGDIDIDIDG--
+aS04_OB         ---PDWDDDP-QQ----WIWTQTS------------------SRDIFIHH----
+uS12_OB         DWDAFAPPDG-DT--WIWTFIQTN------------------RRDTAIEGED--
+uS17_OB         ---GFQDDPD-DQ----KTKTKGKDW---FADPPP--GDTDIDIDIAIAGDD--
+bS01_OB         ---WCFPDDD-PQ----FTWTHRD------------------GNQIETEGPVQD
+aIF2a_OB        ---WDFDDAD-PQ----WTWTDTPV----------------HPPAIATEGPV-L
+aIF5a_OB        ---WFFDDDD-PF----WTWTARPV-----------------VRDIDIGGPP--
+aIF1_OB         ---DFDDDPD-PQ----WTWIQTP------------------VRDTAIE-----
+bIF1_OB         ---TFHDQDP-PQ----WTWTQTP------------------VGDIFIEHED--
+bEFP_OB1        ---WAWDDDD-VQ----WTWIAGPV-----------------VRDIDTHGVV--
+bEFP_OB2        DQPDPDDDPP-FA----WTWTQTP------------------RRDTDTD-----
+                                                                      

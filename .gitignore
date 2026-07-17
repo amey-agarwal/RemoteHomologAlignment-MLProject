@@ -1,0 +1,13 @@
+.DS_Store/
+__pycache__/
+pyenv/
+PDBs_with_aln_index/
+PDBs_with_confidence/
+
+reserveFastaFiles/seqTrim*
+reserveFastaFiles/*_AF2Pred
+
+reservePDBfilegroups/seqTrim*
+reservePDBfilegroups/*_AF2Pred
+reservePDBfilegroups/uL02*
+reservePDBfilegroups/bL19*

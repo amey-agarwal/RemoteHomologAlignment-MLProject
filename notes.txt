@@ -1,0 +1,16 @@
+reserveFastaFles/
+    |_bL19_allSeqs_AF2Pred/
+    |_uL02_allSeqs_AF2Pred/
+        alignment of protein found in several bacterial and archaeal species (trimmed files given in Spring'26)
+        is taken and given to AF2 for pred (stored at reservePDBfilegroups/rawpredictionzipFiles-af2/localSeqAlignment).
+        The PDB files are given to Structome 3Di for alignment. 3Di is mapped back to protein residue one-to-one. 
+
+
+    |_bL19+uL02/
+
+- some filenames have been stored as [forward_slash_character] for / in name of sequence
+
+References
+- Structome-AlignViewer
+Available at : https://biosig.lab.uq.edu.au/structome_alignviewer/
+Ciitation: Ashar J Malik, Siying Mao, Philip Hugenholtz, David B Ascher, Structome-AlignViewer: On Confidence Assessment in Structure-Aware Alignments, Genome Biology and Evolution, Volume 18, Issue 1, January 2026, evag004, https://doi.org/10.1093/gbe/evag004
