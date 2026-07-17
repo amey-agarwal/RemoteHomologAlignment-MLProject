@@ -1,6 +1,6 @@
 # Remote Homolog Alignment - ML Project
 ~ Amey Agarwal, Biswajit Banerjee, Anton Petrov
-> Licensed under Williams Research Group, School of Biological Sciences, Georgia Tech, Atlanta GA [iCOOL Lab](https://sites.gatech.edu/icool/)
+> Licensed under Williams Research Group, School of Biological Sciences, Georgia Tech, Atlanta GA [[iCOOL Lab](https://sites.gatech.edu/icool/)]
 
 ## Directory structure
 
