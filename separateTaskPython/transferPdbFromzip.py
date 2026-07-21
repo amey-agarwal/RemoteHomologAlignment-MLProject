@@ -103,6 +103,8 @@ def extract_pdb_files(zip_file, destination_dir,protein_name=None):
 
             # Remove any path information inside the zip
             filename = os.path.basename(member)
+            if protein_name:
+                filename = f"{protein_name}_{filename}"
 
             destination = os.path.join(destination_dir, filename)
 
@@ -113,7 +115,6 @@ def extract_pdb_files(zip_file, destination_dir,protein_name=None):
             print(f"Extracted: {filename}")
 
     if protein_name:
-        renamePDBwithProteinName(destination_dir,protein_name)
         print("renamed PDB files with protein name")
     print(f"\nFinished! Extracted {extracted} PDB files.")
 

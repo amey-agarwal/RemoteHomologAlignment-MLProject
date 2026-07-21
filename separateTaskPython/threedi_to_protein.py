@@ -34,9 +34,12 @@ def addDashes(seq_name,protein_seq,threedi_seq):
    dashPointer, protein_pointer = len(threedi_seq), len(protein_seq)
 
    if len(''.join(threedi_seq).replace('-',''))!=len(''.join(protein_seq)):
+     print("===============================================================")
      print(f"{seq_name} found Protein sequence and 3Di not same length")
      print(f"{''.join(threedi_seq).replace('-','')}\n{''.join(protein_seq)}")
-     exit(0)
+     print("Skipping this protein")
+     print("===============================================================")
+     return ''
    
    while dashPointer>0:
     dashPointer-=1
@@ -100,14 +103,16 @@ def threedi_to_protein(orig_seqs_file,threedi_seqs_file,orig_aligned_filename):
   for seq_name in orig_seqs_hashmap:
     # threedi_seqs_hashmap_name = threedi_seqs_hashmap[k]
     if seq_name in new_threedi_seqs_hashmap:
-      print("found {seq_name} common in orig_seqs and threedi_seqs")
+      print(f"found {seq_name} common in orig_seqs and threedi_seqs")
       if '[forward_slash_character]' in new_threedi_seqs_hashmap:
         new_threedi_seqs_hashmap[seq_name] = new_threedi_seqs_hashmap[seq_name].replace('[forward_slash_character]','/')
       if '[forward_slash_character]' in orig_seqs_hashmap[seq_name]:
         orig_seqs_hashmap[seq_name] = orig_seqs_hashmap[seq_name].replace('[forward_slash_character]','/')
 
 
-      new_orig_seqs_hashmap[seq_name] = addDashes(seq_name,orig_seqs_hashmap[seq_name],new_threedi_seqs_hashmap[seq_name])
+      aligned_protein_seq = addDashes(seq_name,orig_seqs_hashmap[seq_name],new_threedi_seqs_hashmap[seq_name])
+      if len(aligned_protein_seq):
+        new_orig_seqs_hashmap[seq_name] = aligned_protein_seq
 
   seqs_names=list(new_orig_seqs_hashmap.keys())
   orig_seqs_aligned=list(new_orig_seqs_hashmap.values())
