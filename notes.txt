@@ -10,6 +10,10 @@ reserveFastaFles/
 
 - some filenames have been stored as [forward_slash_character] for / in name of sequence
 
+DISCUSSION POINTS:
+> 3di align code may not be considering a 'composite' alignment. Given composite alignment it possibly removes all dashes and realigns all sequences.
+Because 1. uL24 all + bL19 all aligned and 2. uL24 aligned, then bL19 aligned, then uL24 and bL19 compsite aligned gives exact same output alignment.
+
 References
 - Structome-AlignViewer
 Available at : https://biosig.lab.uq.edu.au/structome_alignviewer/
