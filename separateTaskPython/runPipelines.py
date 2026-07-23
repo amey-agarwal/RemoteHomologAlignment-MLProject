@@ -69,16 +69,18 @@ def PDBstoOrigSeqAlignments(zip_files, seq_folder_name, protein_domain, protein,
         shutil.copy(src,dst)
 
     # PDB zip -> PDB folder
-    for pdb_files_zip in zip_files:
-        if not os.path.exists(pdb_files_zip):
-            print(f"{pdb_files_zip} not found")
-            exit(0)
+    if zip_files:
+        for pdb_files_zip in zip_files:
+            if not os.path.exists(pdb_files_zip):
+                print(f"{pdb_files_zip} not found")
+                exit(0)
+        for i in range(len(zip_files)):
+                print(zip_files[i])
+                # protein name included
+                HelperFunctions().PDBzip2PDBfolder(zip_files[i],pdb_folder,PDBzipType,protein[i]); print("PDB zip -> PDB folder done")
+    else:
+        print("No Zip files given.Proceeding without zip files")
             
-    for i in range(len(zip_files)):
-        print(zip_files[i])
-        # protein name included
-        HelperFunctions().PDBzip2PDBfolder(zip_files[i],pdb_folder,PDBzipType,protein[i]); print("PDB zip -> PDB folder done")
-
     # folder name fix
     # if PDBfixType:
     #     HelperFunctions().PDBfolderNamefix(pdb_folder,protein,PDBfixType); print("PDB folder name fix done")
@@ -86,7 +88,6 @@ def PDBstoOrigSeqAlignments(zip_files, seq_folder_name, protein_domain, protein,
     # python workflow.py reservePDBfiles/{seq_folder_name} --method mafft
     # mv 3Di.fa 3Di_clean.aln reserveFastafiles/{seq_folder_name}
     # workflowCode.main(f"reserveFastafiles/{seq_folder_name}")
-
     protein_combined_name = '+'.join(protein)
 
     # PDB folder -> 3di seqs
@@ -99,10 +100,14 @@ def PDBstoOrigSeqAlignments(zip_files, seq_folder_name, protein_domain, protein,
     
     # 3di aligned seqs -> protein residue
     orig_aligned_output_file = fasta_folder + f"/orig_aligned_{protein_domain}_{protein_combined_name}"
-    orig_trimmed_seq_file = orig_trimmed_seq_files[0]
-    if len(orig_trimmed_seq_files)>1:
-        combine_fasta_files(orig_trimmed_seq_files,fasta_folder+f"/{orig_trimmed_seqs_combined_filename}.fa",protein)
-        orig_trimmed_seq_file = fasta_folder+f"/{orig_trimmed_seqs_combined_filename}.fa"
+    #orig_trimmed_seq_file = orig_trimmed_seq_files[0]
+    #if len(orig_trimmed_seq_files)>1:
+    # to rename the files as <protein>_<filename>
+    combine_fasta_files(orig_trimmed_seq_files,fasta_folder+f"/{orig_trimmed_seqs_combined_filename}.fa",protein)
+    orig_trimmed_seq_file = fasta_folder+f"/{orig_trimmed_seqs_combined_filename}.fa"
+
+    print(orig_trimmed_seq_file,threedi_seqs_aligned_file,orig_aligned_output_file)
+
     HelperFunctions().threedi2protein(orig_trimmed_seq_file,
                                       threedi_seqs_aligned_file,
                                       orig_aligned_output_file);  print("3di aligned seqs -> protein residue done")
@@ -116,8 +121,69 @@ def PDBstoOrigSeqAlignments(zip_files, seq_folder_name, protein_domain, protein,
 
 #PDBstoOrigSeqAlignments('SH3_uL02_trimmed.fa','uL02_AF2_files_bundle.zip','uL02_allSeqs_AF2Pred')
 
-def alignDifferent3DiFastaAlignments(base_dir, file_list_alignment, aligned_folder, aligned_filename):
+def different3DiFastaAlignments(files_orig:list,aligned_files_3di:list,final_folder_name:str,final_aligned_filename:str) -> None:
+    """Used when there are 2 or more folders with their own alignment files, and these folders need to be aligned into single alignment file
 
+    files_orig:['SH3_uL24.fa','SH3_bL19.fa']
+    aligned_files_3di:['3di_aligned_SH3_uL24.fa','3di_aligned_SH3_bL19.fa']
+    final_folder_name:"CompositeEverySeqPred_uL24+bL19_aligned.fa"
+    final_aligned_filename:"aligned_SH3_uL24+bL19.fa"
+    """
+    if len(files_orig) < 2 or len(aligned_files_3di) < 2:
+        print("need more than 1 file input")
+        return
+    if len(files_orig)!=len(aligned_files_3di):
+        print("file length not same")
+        return
+
+    fasta_folder = f'reserveFastaFiles/{final_folder_name}'
+    os.makedirs(fasta_folder,exist_ok=True)
+
+    # copy a base file into the destniation folder
+    src = files_orig[0]
+    if not checkFileExists(src): print(f"{src} not found"); return
+
+    protein_orig_dst = fasta_folder + "/combined_orig_seqs.fa" # base file
+    shutil.copy(src,protein_orig_dst)
+
+    # copy a base file into the destniation folder
+    src = aligned_files_3di[0]
+    if not checkFileExists(src): print(f"{src} not found"); return
+
+    protein_3di_dst = fasta_folder + "/combined_3di_seqs.fa"
+    shutil.copy(src,protein_3di_dst)
+
+    # copy and append all the files into single file
+    for i in range(1,len(files_orig)):
+        protein_file_orig = files_orig[i]
+        protein_file_3di = aligned_files_3di[i]
+
+        if not checkFileExists(protein_file_orig) and checkFileExists(protein_file_3di):
+            print(f"{protein_file_orig} or {protein_file_3di} not found")
+            continue
+
+        with open(protein_file_orig, "r") as source, open(protein_orig_dst, "a") as dest:
+            dest.write(source.read())
+        
+        with open(protein_file_3di, "r") as source, open(protein_3di_dst, "a") as dest:
+            dest.write(source.read())
+
+    # run code for alignment
+    aligned_3di = fasta_folder + f"/3di_{final_aligned_filename}.fa"
+    HelperFunctions().align3diFasta(protein_3di_dst, "mafft", aligned_3di)
+
+    # map back to protein residue from 3di
+    output_file = fasta_folder + f"/orig_{final_aligned_filename}" # don't write fa
+    HelperFunctions().threedi2protein(protein_orig_dst, aligned_3di, output_file)
+
+    return
+
+def alignDifferent3DiFastaAlignments(base_dir, file_list_alignment, aligned_folder, aligned_filename):
+    """
+    file_list_alignment:[], list of folders that contain the files for alignment
+    aligned_folder:"", final aligned folder
+    aligned_filename:"", filename of aligned file iin aligned folder
+    """
     if len(file_list_alignment) < 2:
         print("need more than 1 file input")
         return
@@ -127,6 +193,7 @@ def alignDifferent3DiFastaAlignments(base_dir, file_list_alignment, aligned_fold
     
     os.makedirs(fasta_folder,exist_ok=True)
 
+    # copy the first folder file to be aligned into the destination folder as a base file
     src = base_dir + "/" + file_list_alignment[0] + "/" + f"SH3_{protein}_trimmed.fa"
     if not checkFileExists(src): print(f"{src} not found"); return
     protein_orig_dst = fasta_folder + "/" + "orig_" + aligned_filename + ".fa"
@@ -271,12 +338,33 @@ def main():
 
 # rm -rf reserveFastaFiles/new
 # rm -rf reservePDBfilegroups/new
+# PDBstoOrigSeqAlignments(['reservePDBfilegroups/rawpredictionzipFiles-af2/AFDatabase/SH3_uL24_PDBs.zip'],
+#                          'CompositeEverySeqPred_uL24_alignment',
+#                          'SH3',['uL24'],orig_trimmed_seq_files=['/Users/ameyagarwal/Downloads/SH3_uL24.fas'],
+#                                                           orig_trimmed_seqs_combined_filename="uL24_orig_seqs_fullFasta",
+#                                                           PDBzipType="root",
+#                                                           PDBfixType=None)
+
+# PDBstoOrigSeqAlignments(['reservePDBfilegroups/rawpredictionzipFiles-af2/AFDatabase/SH3_bL19_PDBs.zip'],
+#                          'CompositeEverySeqPred_bL19_alignment',
+#                          'SH3',['bL19'],orig_trimmed_seq_files=['/Users/ameyagarwal/Downloads/SH3_bL19.fas'],
+#                                                           orig_trimmed_seqs_combined_filename="bL19_orig_seqs_fullFasta",
+#                                                           PDBzipType="root",
+#                                                           PDBfixType=None)
 
 PDBstoOrigSeqAlignments(['reservePDBfilegroups/rawpredictionzipFiles-af2/AFDatabase/SH3_uL24_PDBs.zip',
                          'reservePDBfilegroups/rawpredictionzipFiles-af2/AFDatabase/SH3_bL19_PDBs.zip'],
-                         'bL19+uL24_CompositeEverySeqPred_alignment',
+                         'CompositeEverySeqPred_uL24+bL19_alignment',
                          'SH3',['uL24','bL19'],orig_trimmed_seq_files=['/Users/ameyagarwal/Downloads/SH3_uL24.fas',
-                                                          '/Users/ameyagarwal/Downloads/SH3_bL19.fas'],
-                                                          orig_trimmed_seqs_combined_filename="bL19+uL24_orig_seqs_fullFasta",
+                                                                       '/Users/ameyagarwal/Downloads/SH3_bL19.fas'],
+                                                          orig_trimmed_seqs_combined_filename="orig_seqs_uL24+bL19_fullFasta",
                                                           PDBzipType="root",
                                                           PDBfixType=None)
+
+
+# different3DiFastaAlignments(['reserveFastaFiles/CompositeEverySeqPred_uL24_alignment/orig_aligned_SH3_uL24.fa',
+#                              'reserveFastaFiles/CompositeEverySeqPred_bL19_alignment/orig_aligned_SH3_bL19.fa'],
+#                              ['reserveFastaFiles/CompositeEverySeqPred_uL24_alignment/3di_aligned_SH3_uL24.fa',
+#                               'reserveFastaFiles/CompositeEverySeqPred_bL19_alignment/3di_aligned_SH3_bL19.fa'],
+#                               "CompositeEverySeqPred_bL19_uL24_alignment",
+#                               "CompositeEverySeqPred_bL19_uL24")

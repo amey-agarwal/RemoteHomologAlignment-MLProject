@@ -66,6 +66,14 @@ python workflow_v0.2.py reservePDBfilegroups/<pick-folder-with-PDB-files> --meth
 python separateTaskPython/runPipelines.py
 ```
 
+## Addtional files (present in gitignore)
+
+```
+pymol-open-source #from PyMol open source github repo : [Link](https://github.com/schrodinger/pymol-open-source)
+```
+
+
 ## References
 - Alphafold Prediction on Colab [Notebook Link](https://colab.research.google.com/github/sokrypton/ColabFold/blob/main/AlphaFold2.ipynb) ~ Martin Steinegger and Sergey Ovchinnikov
 - Structome-AlignViewer [Website Link](https://biosig.lab.uq.edu.au/structome_alignviewer/) - [Paper reference Link](https://doi.org/10.1093/gbe/evag004)
+- PyMol [Github Repo Link](https://github.com/schrodinger/pymol-open-source)

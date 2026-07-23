@@ -103,11 +103,15 @@ def extract_pdb_files(zip_file, destination_dir,protein_name=None):
 
             # Remove any path information inside the zip
             filename = os.path.basename(member)
+            if os.path.exists(os.path.join(destination_dir, filename)):
+                continue
+
             if protein_name:
                 filename = f"{protein_name}_{filename}"
 
             destination = os.path.join(destination_dir, filename)
 
+            
             with z.open(member) as source, open(destination, "wb") as target:
                 target.write(source.read())
 

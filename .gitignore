@@ -16,3 +16,5 @@ reservePDBfilegroups/rawpredictionzipFiles-af2
 reservePDBfilegroups/Composite*
 
 pdb_to_3di_3Di.fa
+
+pymol-open-source
